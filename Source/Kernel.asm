@@ -65,6 +65,6 @@ DATA_SEG equ GDT_DATA - GDT_START
 
 
 
-Hello DB 'Hello World From Kernel!',0x0D,0		;Hello String
+Hello DB 'Kernel Booted...',0x0D,0
 
-TIMES 512-($-$$) DB 0							;Fill To 512 Bytes
+TIMES 512-($-$$) DB 0

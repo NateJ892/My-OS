@@ -1,26 +1,26 @@
-[BITS 16]										;Tells NASM To Produce 16 BIT Code
-[ORG 0x1000]									;NASM Address Location Reference
+[BITS 16]
+[ORG 0x1000]
 
-MOV SI, Hello									;Point SI register to Hello String
-CALL PrintString								;CALL PrintString
-CLI												;Disable CPU Interupts
-JMP $											;Halt Computer
+MOV SI, Hello
+CALL PrintString
+CLI
+JMP $
 
-PrintChar:										;PrintChar Point
-MOV AH, 0x0E									;0E Subfunction
-MOV BH, 0x00									;Set Page Number To Zero
-MOV BL, 0x0F									;Set Black Background And White Foreground For Text
-INT 0x10										;CALL Interupt 10
+PrintChar:
+MOV AH, 0x0E
+MOV BH, 0x00
+MOV BL, 0x0F
+INT 0x10
 
-PrintString:									;PrintString Point
-MOV AL, [SI]									;Move Byte From SI Pointer
-INC SI											;Shift SI Register To Next Byte
-OR AL, AL										;Compare AL With Itself If Empty Will Return Zero
-JZ Exit											;If Zero From OR Jump To Exit
-CALL PrintChar									;Otherwise Print The Character
-JMP PrintString									;Loop To PrintString
-Exit:											;Exit Point
-RET												;Return Process
+PrintString:
+MOV AL, [SI]
+INC SI
+OR AL, AL
+JZ Exit
+CALL PrintChar
+JMP PrintString
+Exit:
+RET
 
 EnterPM:
 MOV AX, 0x2401
@@ -35,11 +35,11 @@ CLI
 LGDT [GDT_POINTER]
 MOV EAX, CR0
 OR EAX, CR0
-MOV CR0, EAX									;Switch To PM
+MOV CR0, EAX
 STI
 
 
-GDT_START:										;Global Table
+GDT_START:
 	DQ 0x0
 GDT_CODE:
 	DW 0xFFFF

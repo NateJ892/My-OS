@@ -23,16 +23,17 @@ JMP PrintString
 Exit:
 RET
 
-Hello DB 'Kernel Booted...',0x0D,0
+PMMessage DB 'Attempting Switch To Protected Mode',0x0D,0
+Hello DB 'Second Stage Success...',0x0D,0
 
 EnterPM:
+MOV SI, PMMessage
+CALL PrintString
+
 MOV AX, 0x2401
 XOR AH, AH
 INT 0x15
 JC EnterPM
-
-MOV AX, 0x03
-INT 0x10
 
 CLI
 LGDT [GDT_POINTER]
@@ -40,8 +41,6 @@ MOV EAX, CR0
 OR EAX, CR0
 MOV CR0, EAX
 STI
-
-
 
 GDT_START:
 	DQ 0x0

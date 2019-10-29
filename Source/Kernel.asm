@@ -31,14 +31,15 @@ JC EnterPM
 MOV AX, 0x03
 INT 0x10
 
+CLI
 LGDT [GDT_POINTER]
 MOV EAX, CR0
 OR EAX, CR0
-MOV CR0, EAX
+MOV CR0, EAX									;Switch To PM
+STI
 
 
-
-GDT_START:
+GDT_START:										;Global Table
 	DQ 0x0
 GDT_CODE:
 	DW 0xFFFF

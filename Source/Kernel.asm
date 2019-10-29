@@ -22,6 +22,8 @@ JMP PrintString
 Exit:
 RET
 
+Hello DB 'Kernel Booted...',0x0D,0
+
 EnterPM:
 MOV AX, 0x2401
 XOR AH, AH
@@ -63,8 +65,5 @@ GDT_POINTER:
 CODE_SEG equ GDT_CODE - GDT_START
 DATA_SEG equ GDT_DATA - GDT_START
 
-
-
-Hello DB 'Kernel Booted...',0x0D,0
 
 TIMES 512-($-$$) DB 0

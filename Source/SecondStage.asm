@@ -26,22 +26,6 @@ RET
 PMMessage DB 'Attempting Switch To Protected Mode',0x0D,0
 Hello DB 'Second Stage Success...',0x0D,0
 
-EnterPM:
-MOV SI, PMMessage
-CALL PrintString
-
-MOV AX, 0x2401
-XOR AH, AH
-INT 0x15
-JC EnterPM
-
-CLI
-LGDT [GDT_POINTER]
-MOV EAX, CR0
-OR EAX, CR0
-MOV CR0, EAX
-STI
-
 GDT_START:
 	DQ 0x0
 GDT_CODE:
@@ -66,5 +50,20 @@ GDT_POINTER:
 CODE_SEG equ GDT_CODE - GDT_START
 DATA_SEG equ GDT_DATA - GDT_START
 
+EnterPM:
+MOV SI, PMMessage
+CALL PrintString
 
-TIMES 512-($-$$) DB 0
+MOV AX, 0x2401
+XOR AH, AH
+INT 0x15
+JC EnterPM
+
+CLI
+LGDT [GDT_POINTER]
+MOV EAX, CR0
+OR EAX, CR0
+MOV CR0, EAX
+STI
+
+[BITS 32]

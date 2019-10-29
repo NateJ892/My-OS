@@ -30,4 +30,4 @@ JC DiskOperationStart	;Error? Jump Back To DiskOperationStart
 JMP 0x0:0x1000			;Jump To RAM Location Where We Loaded The Kernel
 
 TIMES 510-($-$$) DB 0	;Fill To 510 bytes
-DW 0xAA55				;Fill last 2 bytes with Magic Boot Number
+DW 0xAA55				;Fill last 2 bytes with Boot Sector Identifier

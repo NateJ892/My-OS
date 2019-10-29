@@ -3,6 +3,7 @@
 
 MOV SI, Hello
 CALL PrintString
+JMP EnterPM
 CLI
 JMP $
 
@@ -39,6 +40,7 @@ MOV EAX, CR0
 OR EAX, CR0
 MOV CR0, EAX
 STI
+
 
 
 GDT_START:
